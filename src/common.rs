@@ -84,7 +84,14 @@ impl Mem {
                 ptr::write_volatile(x.as_mut_ptr().add(i), T::default());
             }
         }
-        atomic::compiler_fence(atomic::Ordering::SeqCst);
-        atomic::fence(atomic::Ordering::SeqCst);
+        #[cfg(feature = "cuda")]
+        {
+            cuda_std::thread::device_fence();
+        }
+        #[cfg(not(feature = "cuda"))]
+        {
+            atomic::compiler_fence(atomic::Ordering::SeqCst);
+            atomic::fence(atomic::Ordering::SeqCst);
+        }
     }
 }
