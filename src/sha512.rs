@@ -323,6 +323,13 @@ impl Hash {
         }
     }
 
+    pub fn reset(&mut self) {
+        self.state = State::new();
+        self.w = [0u8; 128];
+        self.r = 0;
+        self.len = 0;
+    }
+
     /// Absorb content
     pub fn update<T: AsRef<[u8]>>(&mut self, input: T) {
         let input = input.as_ref();
