@@ -118,6 +118,8 @@ mod edwards25519;
 
 #[cfg(not(feature = "disable-signatures"))]
 pub use crate::ed25519::*;
+#[cfg(not(feature = "disable-signatures"))]
+pub use crate::edwards25519::*;
 
 #[cfg(feature = "x25519")]
 pub mod x25519;
